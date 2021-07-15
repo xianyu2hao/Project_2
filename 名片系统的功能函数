@@ -1,0 +1,112 @@
+# 负责各个功能函数的实现和定义
+# 但是不能调用各个功能，需要由总控中心
+# 实现功能：显示菜单、新建名片、显示全部名片、查询名片、修改名片、删除明显、返回上一级
+# coding:utf-8
+# 定义菜单显示函数
+def show_menu():
+    """
+    定义显示菜单函数
+    :return:
+    """
+    print("")
+    print("*" * 50)
+    print("欢迎使用 [名片管理系统] v1.0")
+    print("")
+    print("1. 新建名片")
+    print("2. 显示全部")
+    print("3. 查询名片")
+    print("0. 退出系统")
+    print("")
+    print("*" * 50)
+
+
+# 新建名片功能函数
+card_list = [{'name': "小郭", 'phone': "100865", 'qq': "1234564", 'email': "152454@qq.com"},
+             {'name': "小王", 'phone': "1015865", 'qq': "123415564", 'email': "1524154154@qq.com"},
+             {'name': "小张", 'phone': "11234855", 'qq': "59874144", 'email': "152454@163.com"}]
+
+
+# '''
+# # {'name':"小郭",'phone':"100865",'qq':"1234564",'email':"152454@qq.com"}
+# # {'name':"小王",'phone':"1015865",'qq':"123415564",'email':"1524154154@qq.com"}
+# # {'name':"小张",'phone':"11234855",'qq':"59874144",'email':"152454@163.com"}
+# '''
+def new_card():
+    """
+    新建名片函数
+    :return:
+    """
+    print("[功能]新建名片")
+    name_str = input("请输入姓名：")
+    phone_str = input("请输入电话：")
+    qq_str = input("请输入QQ号：")
+    email_str = input("请输入邮箱：")
+    new_dict = {'name': name_str, 'phone': phone_str, 'qq': qq_str, 'email': email_str}
+    card_list.append(new_dict)
+    print("新建姓名是:%s名片成功！" % name_str)
+    # print(card_list)
+
+
+# 显示全部名片功能函数
+def show_all():
+    """
+    显示全部名片
+    :return:
+    """
+    # 先判断列表有没有数据，选择执行或者不执行；return除了返回值还可以提前终止函数运行
+    if len(card_list) <= 0:
+        print("当前名片没有数据，请新建名片！")
+        return
+    print("[功能]显示全部")
+    print("-" * 50)
+    print("姓名".ljust(10), "电话".ljust(10), "QQ号".ljust(10), "邮箱".ljust(10), sep='\t\t')
+    for item in card_list:  # 临时变量获取的是列表中的字典
+        print(item.get('name').ljust(10), item.get('phone').ljust(10), item.get('qq').ljust(10),
+              item.get('email').ljust(10), sep='\t\t')
+    print("-" * 50)
+
+
+# pass是占位符，完善语法作用，不输出任何内容,但是也占用资源。
+# 当前代码待完成
+# 查询名片功能函数
+def search_card():
+    """
+    实现查询名片的功能
+    :return:
+    """
+    print("[功能]查询名片")
+    find_name = input("请输入您要查询的姓名:")  # 获取查询的姓名
+    # 获取的姓名在列表中查询，是否在列表中存在
+    for item in card_list:
+        if item.get('name') == find_name:
+            print("已经找到姓名为：%s 的名片" % item.get('name'))
+            print("-" * 50)
+            print("姓名".ljust(10), "电话".ljust(10), "QQ号".ljust(10), "邮".ljust(10), sep='\t\t')
+            print("-" * 50)
+            print(item.get('name').ljust(10), item.get('phone').ljust(10), item.get('qq').ljust(10),item.get('email').ljust(10), sep='\t\t')
+            deal_card(item)
+            break
+    else:
+        print("没有找到姓名为：%s 的名片，请核对后重新输入!!！" % find_name)
+# 对调用的函数进行选择操作
+def deal_card(find_dict):
+    """
+    选择1是修改名片
+    选择2是删除名片
+    选择0是返回上一级
+    输入是其他的，提示输入有误，重新输入
+    :return:
+    """
+    op= input("请输入对名片的操作选择[1.修改  2.删除  0.返回上一级]:")
+    if op == "1":
+        print("[功能]修改名片")
+    elif op == "2":
+        print("[功能]删除名片")
+        card_list.remove(find_dict)
+        print("删除成功！")
+    elif op == "0":
+        print("[功能]返回上一级")
+        return
+    else:
+        print("输入有误，请核对后重新输入！！！")
+
