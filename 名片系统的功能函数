@@ -97,9 +97,19 @@ def deal_card(find_dict):
     输入是其他的，提示输入有误，重新输入
     :return:
     """
-    op= input("请输入对名片的操作选择[1.修改  2.删除  0.返回上一级]:")
+    op = input("请输入对名片的操作选择[1.修改  2.删除  0.返回上一级]:")
     if op == "1":
         print("[功能]修改名片")
+        # 获取修改后的姓名 电话 QQ号 邮箱，然后进行修改
+        change_name = input("请输入修改后的姓名:")
+        change_phone = input("请输入修改后的手机:")
+        change_qq = input("请输入修改后的qq号:")
+        change_email = input("请输入修改后的邮箱:")
+        find_dict['name'] = change_name
+        find_dict['phone'] = change_phone
+        find_dict['qq'] = change_qq
+        find_dict['email'] = change_email
+        print("修改名片成功！")
     elif op == "2":
         print("[功能]删除名片")
         card_list.remove(find_dict)
